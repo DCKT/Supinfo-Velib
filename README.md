@@ -17,3 +17,9 @@ curl -s https://getcomposer.org/installer | php
 <code>
 http://blog.dck.me/post/40188913987/creer-un-vhost-pour-vos-projets-sous-symfony
 </code>
+
+- Route principale ( pour le moment )
+<br />
+<code>
+http://local.webproject.com/app_dev.php/index
+</code>
