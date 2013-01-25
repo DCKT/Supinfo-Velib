@@ -10,16 +10,29 @@
     {% block stylesheets %}
       <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
     {% endblock %}
+
+    {% block javascripts %}
+    {# Ajoutez ces javascripts si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
+  {% endblock %}
   </head>
  
   <body>
+    <div class="navbar navbar-inverse navbar-static-top">
+      <div class="navbar-inner">
+        <a class="brand" href="{{ path('index') }}">Bike 2.0</a>
+        <ul class="nav">
+          <li class="active"><a href="{{ path('index') }}">Home</a></li>
+          <li><a href="{{ path('map') }}">Map</a></li>
+        </ul>
+      </div>
+    </div>
+
     <div class="container">
       <div id="header" class="hero-unit">
-        <h1>Projet Web SUPINFO</h1>
-        <p>Ce projet est propulsé par Symfony2, et construit grâce au tutoriel du siteduzero.</p>
-        <p><a class="btn btn-primary btn-large" href="http://www.siteduzero.com/tutoriel-3-517569-symfony2.html">
-          Lire le tutoriel »
-        </a></p>
+        <h1>Bike 2.0</h1>
+        <p>Ce projet permet d'intéragir avec les services Velib via une carte intéractive.</p>
       </div>
  
       <div class="row">
@@ -35,12 +48,5 @@
         <p>Projet Web SUPINFO</p>
       </footer>
     </div>
- 
-  {% block javascripts %}
-    {# Ajoutez ces javascripts si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script type="text/javascript" src="{{ asset('js/bootstrap.min.js') }}"></script>
-  {% endblock %}
- 
   </body>
 </html>

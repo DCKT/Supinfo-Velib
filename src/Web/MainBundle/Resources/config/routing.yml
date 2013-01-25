@@ -1,3 +1,7 @@
 index:
     pattern:  /
     defaults: { _controller: WebMainBundle:Default:index }
+
+map:
+    pattern: /map
+    defaults: { _controller: WebMainBundle:Default:map }
