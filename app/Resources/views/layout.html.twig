@@ -9,6 +9,7 @@
  
     {% block stylesheets %}
       <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" type="text/css" />
+      <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
     {% endblock %}
 
     {% block javascripts %}
@@ -19,34 +20,46 @@
   </head>
  
   <body>
+
+<!-- Menu -->
     <div class="navbar navbar-inverse navbar-static-top">
       <div class="navbar-inner">
         <a class="brand" href="{{ path('index') }}">Bike 2.0</a>
         <ul class="nav">
-          <li class="active"><a href="{{ path('index') }}">Home</a></li>
-          <li><a href="{{ path('map') }}">Map</a></li>
+            <li class="active">
+                <a href="{{ path('index') }}">
+                    Home
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('map') }}">
+                    Map
+                </a>
+            </li>
         </ul>
+            <a class="btn btn-success login-btn" href="{{ path('fos_user_security_login') }}">
+                Connexion
+            </a>
       </div>
     </div>
 
-    <div class="container">
-      <div id="header" class="hero-unit">
-        <h1>Bike 2.0</h1>
-        <p>Ce projet permet d'intéragir avec les services Velib via une carte intéractive.</p>
-      </div>
- 
-      <div class="row">
-        <div id="content" class="span9">
-          {% block body %}
-          {% endblock %}
-        </div>
-      </div>
- 
-      <hr>
- 
-      <footer style="text-align:center">
-        <p>Projet Web SUPINFO</p>
-      </footer>
+<!-- Page -->
+        <div class="container">
+            <div id="header" class="hero-unit">
+                <h1>Bike 2.0</h1>
+                <p>Ce projet permet d'intéragir avec les services Velib via une carte intéractive.</p>
+            </div>
+
+            <div class="row">
+                <div id="content" class="span9">
+                    {% block body %}
+                    {% endblock %}
+                </div>
+            </div>
+ <!-- Footer -->
+        <footer style="text-align:center">
+            <p>Projet Web SUPINFO</p>
+        </footer>
     </div>
   </body>
 </html>
