@@ -8,6 +8,11 @@ Projet de fin d'année SUPINFO ( Web )
 
 - Clonner le dépot sur votre machine
 
+- Vérifier votre configuration :<br />
+<code>
+php app/check.php
+</code>
+
 - Installer les vendors via composer :<br />
 <code>
 curl -s https://getcomposer.org/installer | php
