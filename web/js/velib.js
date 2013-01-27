@@ -5,7 +5,7 @@ var centreCarte = new GLatLng(48.867095, 2.322367);
 
 // Personnalisation de l'icone du velib 
 var icon = new GIcon();
-icon.image = "img/velib.png";
+icon.image = "http://local.webproject.com/img/velib.png";
 icon.iconSize = new GSize(12, 20);
 icon.shadowSize = new GSize(0, 0);
 icon.iconAnchor = new GPoint(6, 20);
@@ -29,7 +29,7 @@ var arrondissements = new GGeoXml(kml2);
 function afficheDataStation(station_number) {
 	$.ajax({
 		type: "GET",
-		url: "http://local.webproject.co/app_dev.php/xml/stations-velib.php?action=getInfos&station_number=" + station_number,
+		url: "http://local.webproject.com/xml/stations-velib.php?action=getInfos&station_number=" + station_number,
 		dataType: "xml",
 		success: function(xmlData)
 		{
@@ -54,7 +54,7 @@ function afficheDataStation(station_number) {
 function returnInfo(station_number, point, html) {
 	var marker = new GMarker(point, icon);
 	GEvent.addListener(marker, "click", function() {
-		marker.openInfoWindowHtml(html + '<div style=\"width:222px;height:30px;display:block\" id=\"infosStations\" /><p class="loader"><img src=\"img/load.gif\" alt="chargement en cours..." /></p></div>');
+		marker.openInfoWindowHtml(html + '<div style=\"width:222px;height:30px;display:block\" id=\"infosStations\" /><p class="loader"><img src=\"http://local.webproject.com/img/load.gif\" alt="chargement en cours..." /></p></div>');
 		afficheDataStation(station_number);
 	});
 	return marker;
@@ -65,7 +65,7 @@ function returnInfo(station_number, point, html) {
 function chargeCarteVelib(map) {
 	$.ajax({
 		type: "GET",
-		url: "xml/stations-velib.php",
+		url: "http://local.webproject.com/xml/stations-velib.php",
 		dataType: "xml",
 		success: function(xmlData)
 		{
