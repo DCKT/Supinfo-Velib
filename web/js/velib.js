@@ -89,13 +89,6 @@ function chargeCarteVelib(map) {
 // fonction permettant d'ajouter des fonctions supplémentaires à la carte
 // paramètre : map = identifiant de la carte Google Map
 function ajoutInfos (map) {
-	// code html qui sera inséré après la carte pour faire apparaitre les fonctionnalités
-	var htmlFunction = '<form action="#" method="post" name="fonctioncarte" id="fonction-carte">';
-	htmlFunction += '<p><input type="checkbox" id="arrondissement" name="aff_arrondissement" value="" /><label class="options-carte" for="arrondissement">Afficher les arrondissements</label></p>';
-	htmlFunction += '<p><input type="checkbox" id="affichevelib" name="aff_velib" value="" /><label class="options-carte" for="affichevelib">Afficher les pistes cyclables</label></p>';
-	htmlFunction += '</form>';
-	// on ajoute le code html à la suite de la carte
-	$("#map").after(htmlFunction);
 
 	//affiche les parcours velib
 	$('#affichevelib').click(function() {
