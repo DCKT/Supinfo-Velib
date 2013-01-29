@@ -17,6 +17,10 @@ php app/check.php
 <code>
 curl -s https://getcomposer.org/installer | php
 </code>
+<br />
+<code>
+php composer.phar update
+</code>
 
 - Utilisation d'un vhost<br />
 <code>
@@ -28,3 +32,4 @@ http://blog.dck.me/post/40188913987/creer-un-vhost-pour-vos-projets-sous-symfony
 <code>
 http://local.webproject.com/app_dev.php/
 </code>
+
