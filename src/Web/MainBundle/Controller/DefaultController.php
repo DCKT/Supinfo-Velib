@@ -23,12 +23,19 @@ class DefaultController extends Controller
     // Page avec favoris
     public function favorisAction()
     {
-        
-        $repo = $this->getDoctrine()->getManager()->getRepository('WebMainBundle:Favoris');
-        $favoris = $repo->findAll();
+        // Current user
+        $user = $this->container->get('security.context')->getToken()->getUser();
 
-        return $this->render('WebMainBundle:Default:favoris.html.twig', array(
-            'favoris' => $favoris
-        ));
+        $favoris = new Favoris();
+        $favoris->setNomStation('jojo');
+        $favoris->addUser($user);
+
+        $repo = $this->getDoctrine()->getManager();
+        $repo->persist($favoris);
+        $repo->flush();
+        return new Response('OK');
+        // return $this->render('WebMainBundle:Default:favoris.html.twig', array(
+        //     'favoris' => $favoris
+        // ));
     }
 }
