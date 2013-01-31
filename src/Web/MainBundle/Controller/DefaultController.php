@@ -3,6 +3,8 @@
 namespace Web\MainBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Web\MainBundle\Entity\Favoris;
+use Symfony\Component\HttpFoundation\Response;
 
 class DefaultController extends Controller
 {
@@ -21,6 +23,12 @@ class DefaultController extends Controller
     // Page avec favoris
     public function favorisAction()
     {
-        return $this->render('WebMainBundle:Default:favoris.html.twig');
+        
+        $repo = $this->getDoctrine()->getManager()->getRepository('WebMainBundle:Favoris');
+        $favoris = $repo->findAll();
+
+        return $this->render('WebMainBundle:Default:favoris.html.twig', array(
+            'favoris' => $favoris
+        ));
     }
 }

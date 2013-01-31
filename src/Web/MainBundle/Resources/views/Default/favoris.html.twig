@@ -4,5 +4,12 @@
 	<div class="page-header">
 		<h1>Stations favorites :</h1>
 	</div>
-
+	<table class="table">
+		{% for fav in favoris %}
+			<tr>
+				<td>{{ fav.nomStation }}</td>
+				<td><a href="#" class="btn btn-warning">Supprimer</a></td>
+			</tr>
+		{% endfor %}
+	</table>
 {% endblock %}
