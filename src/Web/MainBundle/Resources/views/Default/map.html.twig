@@ -1,19 +1,20 @@
 {% extends "WebMainBundle::layout.html.twig" %}
 
 {% block body %}
-  	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyDp96hrrsl5Guz4pm0R3AzSOKUUm0HzFJQ" type="text/javascript" charset="utf-8"></script>
-  	<script src="{{ asset('js/velib.js') }}" type="text/javascript"></script>
-
-  	<div class="page-header">
-		<h1>Carte Vélib</h1>
-	</div>
-	<div class="row">
-		<div id="map" class="span12">
-			Afin d'afficher la carte de Google, vous devez activer Javascript.
-		</div>
-	</div>
-	
 	{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+	  	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyDp96hrrsl5Guz4pm0R3AzSOKUUm0HzFJQ" type="text/javascript" charset="utf-8"></script>
+	  	<script src="{{ asset('js/velib.js') }}" type="text/javascript"></script>
+
+	  	<div class="page-header">
+			<h1>Carte Vélib</h1>
+		</div>
+		<div class="row">
+			<div id="map" class="span12">
+				Afin d'afficher la carte de Google, vous devez activer Javascript.
+			</div>
+		</div>
+	
+	
 		<legend>Station sélectionnée :</legend>
 		<table class="table" id="table-selected">
 			<tr>
@@ -29,5 +30,7 @@
 				<td><a href="#" class="btn btn-warning">Ajouter au favoris</a></td>
 			</tr>
 		</table>
+	{% else %}
+		<h1 class="alert">Connexion requise</h1>
 	{% endif %}
 {% endblock %}
