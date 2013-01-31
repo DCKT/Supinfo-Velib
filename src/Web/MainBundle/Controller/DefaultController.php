@@ -34,4 +34,9 @@ class DefaultController extends Controller
              'favoris' => $favoris
         ));
     }
+
+    public function addFavoriAction()
+    {
+        return new Response('Yo');
+    }
 }
