@@ -12,4 +12,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class FavorisRepository extends EntityRepository
 {
+	public function getUserFavori($user)
+	{
+		$qb = $this->createQueryBuilder('a')
+					->join('a.user', 'c', 'WITH', 'c.id = '.$user->getId());
+		return $qb->getQuery()->getResult();
+	}
 }

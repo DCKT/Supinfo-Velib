@@ -25,17 +25,13 @@ class DefaultController extends Controller
     {
         // Current user
         $user = $this->container->get('security.context')->getToken()->getUser();
+       
+        $repo = $this->getDoctrine()->getManager()->getRepository('WebMainBundle:Favoris');
 
-        $favoris = new Favoris();
-        $favoris->setNomStation('jojo');
-        $favoris->addUser($user);
+        $favoris = $repo->getUserFavori($user);
 
-        $repo = $this->getDoctrine()->getManager();
-        $repo->persist($favoris);
-        $repo->flush();
-        return new Response('OK');
-        // return $this->render('WebMainBundle:Default:favoris.html.twig', array(
-        //     'favoris' => $favoris
-        // ));
+        return $this->render('WebMainBundle:Default:favoris.html.twig', array(
+             'favoris' => $favoris
+        ));
     }
 }
