@@ -36,6 +36,13 @@
                     Map
                 </a>
             </li>
+             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <li>
+                    <a href="{{ path('favoris') }}">
+                        Favoris
+                    </a>
+                </li>
+             {% endif %}
         </ul>
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <li class="dropdown login-btn">

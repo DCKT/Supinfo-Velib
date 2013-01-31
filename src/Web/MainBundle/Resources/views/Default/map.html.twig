@@ -12,4 +12,22 @@
 			Afin d'afficher la carte de Google, vous devez activer Javascript.
 		</div>
 	</div>
+	
+	{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+		<legend>Station sélectionnée :</legend>
+		<table class="table" id="table-selected">
+			<tr>
+				<th>Nom</th>
+				<th>Vélos disponibles</th>
+				<th>Emplacements libres</th>
+				<th>Action</th>
+			</tr>
+			<tr>
+				<td id="name-selected"></td>
+				<td id="nb-selected"></td>
+				<td id="emp-selected"></td>
+				<td><a href="#" class="btn btn-warning">Ajouter au favoris</a></td>
+			</tr>
+		</table>
+	{% endif %}
 {% endblock %}

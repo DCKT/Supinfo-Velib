@@ -26,7 +26,7 @@ var arrondissements = new GGeoXml(kml2);
 
 // fonction permettant d'afficher les infos relative à la station vélib
 // paramètre : station_number = numero de la station vélib
-function afficheDataStation(station_number) {
+function afficheDataStation(station_number, data) {
 	$.ajax({
 		type: "GET",
 		url: "http://local.webproject.com/xml/stations-velib.php?action=getInfos&station_number=" + station_number,
@@ -40,6 +40,10 @@ function afficheDataStation(station_number) {
 				var html = "<p><strong>velos disponibles</strong> : "+velosDispos+"</p>";
 				html += "<p><strong>emplacements libres</strong> : "+emplacementsDispos+"</p>";
 				$("#infosStations").replaceWith(html);
+				$("td#nb-selected").text(velosDispos);
+				$("td#emp-selected").text(emplacementsDispos);
+				$("#name-selected").text($(data).text())
+
 			});
 		}
 	});
@@ -55,7 +59,7 @@ function returnInfo(station_number, point, html) {
 	var marker = new GMarker(point, icon);
 	GEvent.addListener(marker, "click", function() {
 		marker.openInfoWindowHtml(html + '<div style=\"width:222px;height:30px;display:block\" id=\"infosStations\" /><p class="loader"><img src=\"http://local.webproject.com/img/load.gif\" alt="chargement en cours..." /></p></div>');
-		afficheDataStation(station_number);
+		afficheDataStation(station_number, html);
 	});
 	return marker;
 }
@@ -81,6 +85,7 @@ function chargeCarteVelib(map) {
 				html += "<p>"+address+"</p>";
 				var marker2 = returnInfo(station_number,point,html)
 				map.addOverlay(marker2);
+
 			});
 		}
 	});

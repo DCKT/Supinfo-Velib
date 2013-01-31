@@ -5,3 +5,6 @@ index:
 map:
     pattern: /map
     defaults: { _controller: WebMainBundle:Default:map }
+favoris:
+    pattern: /favoris
+    defaults: { _controller: WebMainBundle:Default:favoris }
