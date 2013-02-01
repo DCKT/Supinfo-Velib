@@ -16,20 +16,29 @@
 	
 	
 		<legend>Station sélectionnée :</legend>
-		<table class="table" id="table-selected">
-			<tr>
-				<th>Nom</th>
-				<th>Vélos disponibles</th>
-				<th>Emplacements libres</th>
-				<th>Action</th>
-			</tr>
-			<tr>
-				<td id="name-selected"></td>
-				<td id="nb-selected"></td>
-				<td id="emp-selected"></td>
-				<td><a href="{{ path('add_favori') }}" class="btn btn-warning">Ajouter au favoris</a></td>
-			</tr>
-		</table>
+
+		<form action="{{ path('add_favori') }}" method="post" {{form_enctype(form) }} >
+			<table class="table" id="table-selected">
+				<!-- <tr>
+					<th>Nom</th>
+					<th>Vélos disponibles</th>
+					<th>Emplacements libres</th>
+					<th>Action</th>
+				</tr>
+				<tr>
+					<td id="name-selected">
+						<input type="text" name="nomStation" id="nomStation" disabled /> 
+					</td>
+					<td id="nb-selected"></td>
+					<td id="emp-selected"></td>
+					<td>
+						<input type='submit' value="Ajouter au favoris" class="btn btn-warning" />
+					</td>
+				</tr> -->
+				{{ form_widget(form) }}
+				<input type="submit" class="btn" />
+			</table>
+		</form>
 	{% else %}
 		<h1 class="alert">Connexion requise</h1>
 	{% endif %}

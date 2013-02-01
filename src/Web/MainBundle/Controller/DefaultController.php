@@ -17,12 +17,21 @@ class DefaultController extends Controller
     // Page avec GMAP
     public function mapAction()
     {
-    	return $this->render('WebMainBundle:Default:map.html.twig');
+        $favoris = new Favoris();
+
+        $form = $this->createFormBuilder($favoris)
+                        ->add('nomStation', 'text')
+                        ->getForm();
+
+    	return $this->render('WebMainBundle:Default:map.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     // Page avec favoris
     public function favorisAction()
     {
+
         // Current user
         $user = $this->container->get('security.context')->getToken()->getUser();
        
@@ -37,6 +46,25 @@ class DefaultController extends Controller
 
     public function addFavoriAction()
     {
-        return new Response('Yo');
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        $request = $this->get('request');
+
+        if( $request->getMethod() == 'POST' )
+        {
+            $favoris = new Favoris();
+            $nomStation = $_POST['form']['nomStation'];
+            $favoris->setNomStation($nomStation);
+            $favoris->addUser($user);
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($favoris);
+            $manager->flush();
+
+            return new Response('Favoris ajouté');
+        }
+        else {
+            return new Response('No');
+        }
+        
     }
 }

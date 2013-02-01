@@ -42,7 +42,9 @@ function afficheDataStation(station_number, data) {
 				$("#infosStations").replaceWith(html);
 				$("td#nb-selected").text(velosDispos);
 				$("td#emp-selected").text(emplacementsDispos);
-				$("#name-selected").text($(data).text())
+				var html_name_station = $(data).html();
+				var name_station = $(html_name_station+" strong").text();
+				$("#form_nomStation").val(name_station);
 
 			});
 		}
