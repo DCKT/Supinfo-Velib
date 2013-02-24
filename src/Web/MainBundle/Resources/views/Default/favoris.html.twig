@@ -4,12 +4,19 @@
 	<div class="page-header">
 		<h1>Stations favorites :</h1>
 	</div>
-	<table class="table">
+	
+	{% if favoris %}
 		{% for fav in favoris %}
-			<tr>
-				<td>{{ fav.nomStation }}</td>
-				<td><a href="#" class="btn btn-warning">Supprimer</a></td>
-			</tr>
+			<table class="table table-bordered">
+				<tr>
+					<td>{{ fav.nomStation }}</td>
+					<td><a href="{{ path('delete_favori', {id: fav.id }) }}" class="btn btn-danger">Supprimer</a></td>
+				</tr>
+			</table>
 		{% endfor %}
-	</table>
+
+	{% else %}
+		<h2 class="alert" style='text-align:center'>Vous n'avez aucun favori.</h2>
+	{% endif %}
+	
 {% endblock %}

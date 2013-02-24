@@ -13,3 +13,7 @@ favoris:
 add_favori:
     pattern: /add-favoris
     defaults: { _controller: WebMainBundle:Default:addFavori }
+
+delete_favori:
+    pattern: /delete-favoris/{id}
+    defaults: { _controller: WebMainBundle:Default:deleteFavori }

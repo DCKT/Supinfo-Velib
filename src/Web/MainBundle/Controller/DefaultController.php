@@ -44,11 +44,12 @@ class DefaultController extends Controller
         ));
     }
 
+    // Ajout d'un favoris
     public function addFavoriAction()
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $request = $this->get('request');
-        
+
         if( $request->getMethod() == 'POST' )
         {
             $favoris = new Favoris();
@@ -65,6 +66,22 @@ class DefaultController extends Controller
         else {
             return new Response('Error');
         }
-        
+    }
+
+    public function deleteFavoriAction($id)
+    {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+         // Si l'utilisateur n'est pas connecté, on le redirige
+        if (!is_object($user)):
+            return $this->redirect($this->generateUrl('fos_user_security_login'));
+        endif;
+
+        $em = $this->getDoctrine()->getManager();
+        $repo = $this->getDoctrine()->getManager()->getRepository('WebMainBundle:Favoris');
+        $favoris = $repo->getSpecificUserFavori($user, $id);
+        $em->remove($favoris[0]);
+        $em->flush();
+
+        return new Response('Favoris supprimé');
     }
 }

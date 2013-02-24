@@ -44,3 +44,6 @@ p.loader {
 #conteneur form label{
 	padding: 2px 0;
 }
+td {
+	vertical-align: middle !important;
+}
