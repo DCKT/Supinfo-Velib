@@ -48,7 +48,7 @@ class DefaultController extends Controller
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         $request = $this->get('request');
-
+        
         if( $request->getMethod() == 'POST' )
         {
             $favoris = new Favoris();
@@ -60,10 +60,10 @@ class DefaultController extends Controller
             $manager->persist($favoris);
             $manager->flush();
 
-            return new Response('Favoris ajouté');
+            return $this->redirect($this->generateUrl('index'));
         }
         else {
-            return new Response('No');
+            return new Response('Error');
         }
         
     }

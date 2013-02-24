@@ -1,0 +1,11 @@
+{% extends "::layout.html.twig" %}
+
+{% block body %}
+<div class="page-header">
+	<h1>Edit my profile</h1>
+</div>
+{% block fos_user_content %}
+	{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+{% endblock fos_user_content %}
+
+{% endblock %}
