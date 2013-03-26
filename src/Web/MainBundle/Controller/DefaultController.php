@@ -66,7 +66,9 @@ class DefaultController extends Controller
             if (!isset($_POST['form']['slugNomStation']) && !isset($_POST['form']['nomStation'])):
                 return new Response('Formulaire vide');
             endif;
-            $check = $repo->findBySlugNomStation($_POST['form']['slugNomStation']);
+
+            $check = $repo->getSpecificUserFavoriByName($user, $_POST['form']['slugNomStation']);
+
             if ($check != null):
                 if ($check[0]->getSlugNomStation() == $_POST['form']['slugNomStation']):
                     $this->get('session')->getFlashBag()->add('notice', 'Cette station est déjà en favoris !');

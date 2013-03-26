@@ -26,4 +26,11 @@ class FavorisRepository extends EntityRepository
 					->where('a.id = '.$id);
 		return $qb->getQuery()->getResult();
 	}
+	public function getSpecificUserFavoriByName($user, $name)
+	{
+		$qb = $this->createQueryBuilder('a')
+					->join('a.user', 'c', 'WITH', 'c.id = '.$user->getId())
+					->where('a.slugNomStation = \''.$name.'\'');
+		return $qb->getQuery()->getResult();
+	}
 }
