@@ -14,10 +14,20 @@
 	  	<div class="page-header">
 			<h1>Carte Vélib</h1>
 		</div>
+			<div class="row" style="margin-left:20px;">
+				<form action="#" method="post">
+					<strong style="font-size:20px;">Start: </strong>
+					<input id="start" type="text" value="" >
+					<strong style="font-size:20px;margin-left:20px;">End: </strong>
+					<input id="end" type="text" value="" >
+					<input id="send" class="btn btn-warning" style="margin-top:-10px;width:60px;" onclick="javascript:traceRoute()" value="Send" >
+				</form>
+			</div>
 		<div class="row">
 			<div id="map" class="span12">
 				Afin d'afficher la carte de Google, vous devez activer Javascript.
 			</div>
+			<div id="route" style="margin-left:20px;"></div>
 		</div>
 	
 	

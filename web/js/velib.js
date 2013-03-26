@@ -1,4 +1,6 @@
-
+// variable pour la direction
+var directionsPanel;
+var directions;
 
 // positionne le focus de la carte
 var centreCarte = new GLatLng(48.867095, 2.322367);
@@ -123,6 +125,44 @@ function ajoutInfos (map) {
 	});
 }
 
+function traceRoute(map){
+	var start = $('#start').val();
+	var end = $('#end').val();
+
+	var map = new GMap2(document.getElementById(mapId));
+
+	// Centrage de la carte
+	map.setCenter(centreCarte, 15);
+
+	// Ajoute des controles de base de la Google Map
+	map.addControl(new GSmallMapControl());
+
+	// Ajoute le type de carte "Relief"
+	map.addMapType(G_PHYSICAL_MAP);
+
+	// pour pouvoir scroller avec la souris sur la map
+	map.enableScrollWheelZoom();
+
+	directionsPanel = document.getElementById("route");
+  	directions = new GDirections(map, directionsPanel);
+  	directions.load("from: "+ start +" to: "+ end +"");
+
+	// Créé une hiérarchie dans les différents type de carte
+	var hierarchy = new GHierarchicalMapTypeControl();
+
+	// Insère dans la carte satellite des données supplémentaires
+	hierarchy.addRelationship(G_SATELLITE_MAP, G_HYBRID_MAP, null, true);
+
+	// Ajoute le controle "hierarchie"
+	map.addControl(hierarchy);
+	
+	chargeCarteVelib(map); // on charge la carte vélib
+	ajoutInfos(map); // on ajoute les fonctionnalités supplémentaires
+
+	
+ 
+}
+
 // CHARGEMENT DE LA PAGE
 $(document).ready(function(){
 	// vérifie si le navigateur est compatible avec Google Map
@@ -138,6 +178,9 @@ $(document).ready(function(){
 
 		// Ajoute le type de carte "Relief"
 		map.addMapType(G_PHYSICAL_MAP);
+
+		// pour pouvoir scroller avec la souris sur la map
+		map.enableScrollWheelZoom();
 
 		// Créé une hiérarchie dans les différents type de carte
 		var hierarchy = new GHierarchicalMapTypeControl();
