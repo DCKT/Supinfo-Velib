@@ -65,10 +65,11 @@ class DefaultController extends Controller
                 return new Response('Formulaire vide');
             endif;
             $check = $repo->findBySlugNomStation($_POST['form']['slugNomStation']);
-            
-            if ($check[0]->getSlugNomStation() == $_POST['form']['slugNomStation']):
-                $this->get('session')->getFlashBag()->add('notice', 'Cette station est déjà en favoris !');
-                return $this->redirect($this->generateUrl('map'));
+            if ($check != null):
+                if ($check[0]->getSlugNomStation() == $_POST['form']['slugNomStation']):
+                    $this->get('session')->getFlashBag()->add('notice', 'Cette station est déjà en favoris !');
+                    return $this->redirect($this->generateUrl('map'));
+                endif;
             endif;
 
             $favoris = new Favoris();
