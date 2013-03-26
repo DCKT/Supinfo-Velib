@@ -88,6 +88,7 @@ class DefaultController extends Controller
             $manager->persist($favoris);
             $manager->flush();
 
+            $this->get('session')->getFlashBag()->add('notice', 'Favoris correctement ajouté !');
             return $this->redirect($this->generateUrl('favoris'));
         }
         else {
@@ -109,6 +110,7 @@ class DefaultController extends Controller
         $em->remove($favoris[0]);
         $em->flush();
 
-        return $this->redirect($this->generateUrl('index'));
+        $this->get('session')->getFlashBag()->add('notice', 'Favoris correctement supprimé !');
+        return $this->redirect($this->generateUrl('favoris'));
     }
 }
