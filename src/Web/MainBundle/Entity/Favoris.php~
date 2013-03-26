@@ -29,6 +29,12 @@ class Favoris
     private $nomStation;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="slugNomStation", type="string", length=255)
+     */
+    private $slugNomStation;
+    /**
     *
     * @ORM\ManyToMany(targetEntity="Web\UserBundle\Entity\User", cascade={"persist"})
     */
@@ -65,5 +71,45 @@ class Favoris
     public function getNomStation()
     {
         return $this->nomStation;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Add user
+     *
+     * @param \Web\UserBundle\Entity\User $user
+     * @return Favoris
+     */
+    public function addUser(\Web\UserBundle\Entity\User $user)
+    {
+        $this->user[] = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \Web\UserBundle\Entity\User $user
+     */
+    public function removeUser(\Web\UserBundle\Entity\User $user)
+    {
+        $this->user->removeElement($user);
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

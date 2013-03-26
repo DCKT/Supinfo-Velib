@@ -6,15 +6,23 @@
 	</div>
 	
 	{% if favoris %}
+		<table class="table table-bordered">
 		{% for fav in favoris %}
-			<table class="table table-bordered">
-				<tr>
-					<td>{{ fav.nomStation }}</td>
-					<td><a href="{{ path('delete_favori', {id: fav.id }) }}" class="btn btn-danger">Supprimer</a></td>
-				</tr>
-			</table>
+			<tr>
+				<td class="span9">{{ fav.nomStation }}</td>
+				<td>
+					<div class='btn-group'>
+						<a href="{{path('map_station',{station: fav.slugNomStation}) }}" class="btn">
+							Voir
+						</a>
+						<a href="{{ path('delete_favori', {id: fav.id }) }}" class="btn btn-danger">
+							Supprimer
+						</a>
+					</div>
+				</td>
+			</tr>
 		{% endfor %}
-
+		</table>
 	{% else %}
 		<h2 class="alert" style='text-align:center'>Vous n'avez aucun favori.</h2>
 	{% endif %}

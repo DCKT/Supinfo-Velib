@@ -44,7 +44,10 @@ function afficheDataStation(station_number, data) {
 				$("td#emp-selected").text(emplacementsDispos);
 				var html_name_station = $(data).html();
 				var name_station = $(html_name_station+" strong").text();
+				name = str_replace(" ", "", name_station);
 				$("#form_nomStation").val(name_station);
+				$("#form_slugNomStation").val(name);
+				$("#name_station").text(name_station);
 
 			});
 		}
@@ -119,16 +122,22 @@ $(document).ready(function(){
 	if (GBrowserIsCompatible()) {
 		// définition du calque qui accueillera la carte
 		var map = new GMap2(document.getElementById(mapId));
+
 		// Centrage de la carte
 		map.setCenter(centreCarte, 15);
+
 		// Ajoute des controles de base de la Google Map
 		map.addControl(new GSmallMapControl());
+
 		// Ajoute le type de carte "Relief"
 		map.addMapType(G_PHYSICAL_MAP);
+
 		// Créé une hiérarchie dans les différents type de carte
 		var hierarchy = new GHierarchicalMapTypeControl();
+
 		// Insère dans la carte satellite des données supplémentaires
 		hierarchy.addRelationship(G_SATELLITE_MAP, G_HYBRID_MAP, null, true);
+		
 		// Ajoute le controle "hierarchie"
 		map.addControl(hierarchy);
 		
