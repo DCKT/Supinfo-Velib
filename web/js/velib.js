@@ -42,11 +42,17 @@ function afficheDataStation(station_number, data) {
 				$("#infosStations").replaceWith(html);
 				$("td#nb-selected").text(velosDispos);
 				$("td#emp-selected").text(emplacementsDispos);
+
+				/* Récupération des informations */
 				var html_name_station = $(data).html();
 				var name_station = $(html_name_station+" strong").text();
 				name = str_replace(" ", "", name_station);
 				$("#form_nomStation").val(name_station);
 				$("#form_slugNomStation").val(name);
+				var lat = $("#lat-long-info").data('lat');
+				var lng = $("#lat-long-info").data('long');
+				$("#form_latitude").val(lat);
+				$("#form_longitude").val(lng);
 				$("#name_station").text(name_station);
 
 			});
@@ -78,6 +84,7 @@ function chargeCarteVelib(map) {
 		dataType: "xml",
 		success: function(xmlData)
 		{
+			console.log(xmlData);
 			$(xmlData).find("marker").each(function(m) { 
 				var marker = $(this); 
 				var lat = marker.attr("lat"); // latitude
@@ -87,7 +94,7 @@ function chargeCarteVelib(map) {
 				var station_number = marker.attr("number"); // numéro de la station vélib
 				var point = new GLatLng(lat,lng); // on créé les différents points correspondant à des stations vélib
 				var html = "<p><strong>"+label+"</strong></p>";
-				html += "<p>"+address+"</p>";
+				html += "<p id='lat-long-info' data-long="+lng+" data-lat="+lat+">"+address+"</p>";
 				var marker2 = returnInfo(station_number,point,html)
 				map.addOverlay(marker2);
 
@@ -137,7 +144,7 @@ $(document).ready(function(){
 
 		// Insère dans la carte satellite des données supplémentaires
 		hierarchy.addRelationship(G_SATELLITE_MAP, G_HYBRID_MAP, null, true);
-		
+
 		// Ajoute le controle "hierarchie"
 		map.addControl(hierarchy);
 		

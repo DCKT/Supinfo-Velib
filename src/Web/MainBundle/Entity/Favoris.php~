@@ -41,6 +41,20 @@ class Favoris
     private $user;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="latitude", type="float")
+     */
+    private $latitude;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longitude", type="float")
+     */
+    private $longitude;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -111,5 +125,28 @@ class Favoris
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set slugNomStation
+     *
+     * @param string $slugNomStation
+     * @return Favoris
+     */
+    public function setSlugNomStation($slugNomStation)
+    {
+        $this->slugNomStation = $slugNomStation;
+    
+        return $this;
+    }
+
+    /**
+     * Get slugNomStation
+     *
+     * @return string 
+     */
+    public function getSlugNomStation()
+    {
+        return $this->slugNomStation;
     }
 }

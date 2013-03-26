@@ -22,6 +22,8 @@ class DefaultController extends Controller
             $form = $this->createFormBuilder($favoris)
                          ->add('nomStation', 'text')
                          ->add('slugNomStation', 'text')
+                         ->add('latitude', 'text')
+                         ->add('longitude', 'text')
                          ->getForm();
             return $this->render('WebMainBundle:Default:map.html.twig', array(
                 'form' => $form->createView(),
@@ -75,14 +77,18 @@ class DefaultController extends Controller
             $favoris = new Favoris();
             $nomStation = $_POST['form']['nomStation'];
             $slugNomStation = $_POST['form']['slugNomStation'];
+            $lat = $_POST['form']['latitude'];
+            $long = $_POST['form']['longitude'];
             $favoris->setNomStation($nomStation);
             $favoris->setSlugNomStation($slugNomStation);
+            $favoris->setLatitude($lat);
+            $favoris->setLongitude($long);
             $favoris->addUser($user);
 
             $manager->persist($favoris);
             $manager->flush();
 
-            return $this->redirect($this->generateUrl('index'));
+            return $this->redirect($this->generateUrl('favoris'));
         }
         else {
             return new Response('Error');
