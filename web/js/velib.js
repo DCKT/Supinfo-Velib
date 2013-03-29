@@ -17,7 +17,7 @@ function afficheDataStation(station_number,data) {
 				var velosDispos = marker.children("available").text();
 				var emplacementsDispos = marker.children("free").text();
 				var html = "<p><strong>velos disponibles</strong> : "+velosDispos+"</p>";
-				html += "<p><strong>emplacements libres</strong> : "+emplacementsDispos+"</p>";
+				html += "<p><strong>emplacements libres</strong> : "+emplacementsDispos+"</p></div>";
 				$("#infosStations").replaceWith(html);
 				$("td#nb-selected").text(velosDispos);
 				$("td#emp-selected").text(emplacementsDispos);
@@ -52,7 +52,7 @@ function chargeCarteVelib(map) {
 				var label = marker.attr("name"); // nom de la station
 				var station_number = marker.attr("number"); // numéro de la station vélib
 				var point = new google.maps.LatLng(lat,lng); // on créé les différents points correspondant à des stations vélib
-				var html = "<p class='fuckOverflow'><strong>"+label+"</strong></p>";
+				var html = "<div><p><strong>"+label+"</strong></p>";
 				html += "<p id='lat-long-info' data-long="+lng+" data-lat="+lat+">"+address+"</p>";
 				var marker2 = returnInfo(station_number,point,html)
 				marker2.setMap(map);
