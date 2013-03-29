@@ -7,56 +7,65 @@
 	        <button type="button" class="close" data-dismiss="alert">&times;</button>
 	    </div>
 	{% endfor %}
+
 	{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-	  	<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyDp96hrrsl5Guz4pm0R3AzSOKUUm0HzFJQ" type="text/javascript" charset="utf-8"></script>
+	  	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDp96hrrsl5Guz4pm0R3AzSOKUUm0HzFJQ&sensor=false"></script>
 	  	<script src="{{ asset('js/velib.js') }}" type="text/javascript"></script>
 
-	  	<div class="page-header">
-			<h1>Carte Vélib</h1>
-		</div>
-			<div class="row" style="margin-left:20px;">
-				<form action="#" method="post">
-					<strong style="font-size:20px;">Start: </strong>
-					<input id="start" type="text" value="" >
-					<strong style="font-size:20px;margin-left:20px;">End: </strong>
-					<input id="end" type="text" value="" >
-					<input id="send" class="btn btn-warning" style="margin-top:-10px;width:60px;" onclick="javascript:traceRoute()" value="Send" >
-				</form>
-			</div>
-		<div class="row">
+		<div class="row-fluid">
 			<div id="map" class="span12">
 				Afin d'afficher la carte de Google, vous devez activer Javascript.
 			</div>
 			<div id="route" style="margin-left:20px;"></div>
 		</div>
+
+		<div class="row-fluid" id="itineraire-form">
+			<form action="#" method="post">
+				<strong style="font-size:20px;">Start: </strong>
+				<input id="start" type="text" value="" >
+				<strong style="font-size:20px;margin-left:20px;">End: </strong>
+				<input id="end" type="text" value="" >
+				<input id="send" class="btn btn-warning" style="margin-top:-10px;width:60px;" onclick="javascript:traceRoute()" value="Send" >
+			</form>
+		</div>
 	
 	
-		<legend>Station sélectionnée :</legend>
+		<div class="span12 offset5">
+			<legend>Station sélectionnée :</legend>	
 
 		{% if form %}
-			<form action="{{ path('add_favori') }}" method="post" {{form_enctype(form) }} >
-				<table class="table table-bordered" id="table-selected">
-					<tr>
-						<td>
-							{{ form_label(form.nomStation, "Nom station :") }}
-							<span id="name_station"></span>
-						</td>
-						<td style="display:none">
-							{{ form_widget(form.nomStation, {'attr' : {'class' : 'uneditable-input'}}) }}
-							{{ form_widget(form.slugNomStation, {'attr' : {'class' : 'uneditable-input'}}) }}
-							{{ form_widget(form.latitude, {'attr' : {'class' : 'uneditable-input'}}) }}
-							{{ form_widget(form.longitude, {'attr' : {'class' : 'uneditable-input'}}) }}
-						</td>
-						<td>
-							<input type="submit" class="btn btn-warning btn-block" />
-						</td>
-					</tr>
-				</table>
-			</form>
+				<form action="{{ path('add_favori') }}" method="post" {{form_enctype(form) }} >
+					<table class="table table-bordered" id="table-selected">
+						<tr>
+							<td>
+								{{ form_label(form.nomStation, "Nom station :") }}
+								<span id="name_station"></span>
+							</td>
+							<td style="display:none">
+								{{ form_widget(form.nomStation, {'attr' : {'class' : 'uneditable-input'}}) }}
+								{{ form_widget(form.slugNomStation, {'attr' : {'class' : 'uneditable-input'}}) }}
+								{{ form_widget(form.latitude, {'attr' : {'class' : 'uneditable-input'}}) }}
+								{{ form_widget(form.longitude, {'attr' : {'class' : 'uneditable-input'}}) }}
+							</td>
+							<td>
+								<input type="submit" class="btn btn-warning btn-block" />
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
 		{% endif %}
 
 	{% else %}
 		<h1 class="alert">Connexion requise</h1>
 	{% endif %}
-
+		</div>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$(".container").removeClass();
+			$("#content").removeClass("span12");
+			$('.fuckOverflow').parent().css("overflow", "none");
+			$('.fuckOverflow').parent().parent().css("overflow", "none");
+		});
+	</script>
 {% endblock %}

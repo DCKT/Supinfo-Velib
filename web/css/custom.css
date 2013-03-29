@@ -5,8 +5,7 @@
 	list-style: none;
 }
 #map {
-	
-	height: 500px;
+	height: 560px;
 }
 
 #map p {
@@ -46,4 +45,9 @@ p.loader {
 }
 td {
 	vertical-align: middle !important;
+}
+
+#itineraire-form {
+	margin-top: 15px;
+	text-align: center;
 }
