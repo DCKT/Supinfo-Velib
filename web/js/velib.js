@@ -1,8 +1,9 @@
 var icon = "http://local.webproject.com/img/velib.png";
 var centreCarte = new google.maps.LatLng(48.867095, 2.322367);
 var mapId = "map";
-var directionsPanel;
-var directions;
+var directionsPanel = null;
+var directions = null;
+var infowindow = null;
 
 function afficheDataStation(station_number,data) {
 	$.ajax({
@@ -61,21 +62,29 @@ function chargeCarteVelib(map) {
 	});
 }
 
+var infowindow = null;
+
 function returnInfo(map,station_number, point, html) {
 	var marker = new google.maps.Marker({
 		position: point,
     	title:"Velib"
 	});
 
-	var infoWindow = new google.maps.InfoWindow({
-		content: html
-	});
+	var contenu = html;
 
 	google.maps.event.addListener(marker, 'click', function() {
-  		infoWindow.setContent(html +'<div id=\"infosStations\" /><p class="loader"><img src=\"http://local.webproject.com/img/load.gif\" alt="chargement en cours..." /></p></div>');
-		afficheDataStation(station_number, html);
-		infoWindow.open(map,marker);
-		map.panTo(point);
+		if (!infowindow) {
+            infowindow = new google.maps.InfoWindow();
+            infowindow.setContent(contenu +'<div id=\"infosStations\" /><p class="loader"><img src=\"http://local.webproject.com/img/load.gif\" alt="chargement en cours..." /></p></div>');
+            afficheDataStation(station_number, html);
+            infowindow.open(map,marker);
+            map.panTo(point);
+          } else {
+            infowindow.setContent(contenu +'<div id=\"infosStations\" /><p class="loader"><img src=\"http://local.webproject.com/img/load.gif\" alt="chargement en cours..." /></p></div>');
+            afficheDataStation(station_number, html);
+            infowindow.open(map,marker);
+            map.panTo(point);
+          }
 	});
 	return marker;
 }
