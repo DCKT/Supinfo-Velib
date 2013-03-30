@@ -52,27 +52,30 @@ function chargeCarteVelib(map) {
 				var label = marker.attr("name"); // nom de la station
 				var station_number = marker.attr("number"); // numéro de la station vélib
 				var point = new google.maps.LatLng(lat,lng); // on créé les différents points correspondant à des stations vélib
-				var html = "<div><p><strong>"+label+"</strong></p>";
+				var html = "<div id='size'><p><strong>"+label+"</strong></p>";
 				html += "<p id='lat-long-info' data-long="+lng+" data-lat="+lat+">"+address+"</p>";
-				var marker2 = returnInfo(station_number,point,html)
+				var marker2 = returnInfo(map,station_number,point,html)
 				marker2.setMap(map);
 			});
 		}
 	});
 }
 
-function returnInfo(station_number, point, html) {
+function returnInfo(map,station_number, point, html) {
 	var marker = new google.maps.Marker({
 		position: point,
-    	title:"Hello World!"
+    	title:"Velib"
 	});
 
-	var infoWindow = new google.maps.InfoWindow();
+	var infoWindow = new google.maps.InfoWindow({
+		content: html
+	});
 
 	google.maps.event.addListener(marker, 'click', function() {
   		infoWindow.setContent(html +'<div id=\"infosStations\" /><p class="loader"><img src=\"http://local.webproject.com/img/load.gif\" alt="chargement en cours..." /></p></div>');
 		afficheDataStation(station_number, html);
 		infoWindow.open(map,marker);
+		map.panTo(point);
 	});
 	return marker;
 }
