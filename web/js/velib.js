@@ -103,19 +103,24 @@ function returnInfo(map,station_number, point, html) {
 }
 
 function calcRoute() {
+	// on recupere les adresse de depart et d'arriver
 	var start = $('#start').val();
 	var end = $('#end').val();
+	// on crée la variable avec les infos de direction
 	  var request = {
 	    origin:start,
 	    destination:end,
 	    travelMode: google.maps.TravelMode.DRIVING
 	  };
+	  // on verifie si l'itineraire existe
 	  directionsService.route(request, function(result, status) {
 	    if (status == google.maps.DirectionsStatus.OK) {
-	      directionsDisplay.setDirections(result);
+	    	// si c'est ok on le sauvegarde
+	    	directionsDisplay.setDirections(result);
 	    }
 	  });
 
+	// on crée la variable d'affichage
 	directionsDisplay = new google.maps.DirectionsRenderer();
 
 	// définition du calque qui accueillera la carte
@@ -128,59 +133,56 @@ function calcRoute() {
     map = new google.maps.Map(document.getElementById("map"),
             mapOptions);
 	
-	chargeCarteVelib(map); // on charge la carte vélib
+	// on charge la carte vélib
+	chargeCarteVelib(map); 
 
+	// on ajoute la l'itineraire a la map pour l'afficher
 	directionsDisplay.setMap(map);
+	// on affiche le detail de la route dans la div "route"
     directionsDisplay.setPanel(document.getElementById('route'));
 }
 
 $(document).ready(function(){
-	// définition du calque qui accueillera la carte
-	var mapOptions = {
-          center: centreCarte,
-          zoom: 16,
-          mapTypeId: google.maps.MapTypeId.BICYCLING
-        };
-    // création de la carte google map
-    map = new google.maps.Map(document.getElementById("map"),
-            mapOptions);
+	var latitude = $('#latitude').val();
 	
-	chargeCarteVelib(map); // on charge la carte vélib
+	if( latitude === undefined){	
+		// définition du calque qui accueillera la carte
+		var mapOptions = {
+	          center: centreCarte,
+	          zoom: 16,
+	          mapTypeId: google.maps.MapTypeId.ROADMAP
+	        };
+	    // création de la carte google map
+	    map = new google.maps.Map(document.getElementById("map"),
+	            mapOptions);
+		
+		// on charge la carte vélib
+		chargeCarteVelib(map);
 
+	} else {
+		var longitude = $('#longitude').val();
+		// définition du calque qui accueillera la carte
+		var mapOptions = {
+	          center: new google.maps.LatLng(latitude, longitude),
+	          zoom: 16,
+	          mapTypeId: google.maps.MapTypeId.ROADMAP
+	        };
+	    // création de la carte google map
+	    map = new google.maps.Map(document.getElementById("map"),
+	            mapOptions);
+		
+		// on charge la carte vélib
+		chargeCarteVelib(map); 
+		
+	}
 });
 
-/*function traceRoute(map){
-	var start = $('#start').val();
-	var end = $('#end').val();
+function recupStart(){
+	var adresse = $('#lat-long-info').text();
+	$('#start').val(adresse);
+}
 
-	var map = new GMap2(document.getElementById(mapId));
-
-	// Centrage de la carte
-	map.setCenter(centreCarte, 15);
-
-	// Ajoute des controles de base de la Google Map
-	map.addControl(new GSmallMapControl());
-
-	// Ajoute le type de carte "Relief"
-	map.addMapType(G_PHYSICAL_MAP);
-
-	// pour pouvoir scroller avec la souris sur la map
-	map.enableScrollWheelZoom();
-
-	directionsPanel = document.getElementById("route");
-  	directions = new GDirections(map, directionsPanel);
-  	directions.load("from: "+ start +" to: "+ end +"");
-
-	// Créé une hiérarchie dans les différents type de carte
-	var hierarchy = new GHierarchicalMapTypeControl();
-
-	// Insère dans la carte satellite des données supplémentaires
-	hierarchy.addRelationship(G_SATELLITE_MAP, G_HYBRID_MAP, null, true);
-
-	// Ajoute le controle "hierarchie"
-	map.addControl(hierarchy);
-	
-	chargeCarteVelib(map); // on charge la carte vélib
-	ajoutInfos(map); // on ajoute les fonctionnalités supplémentaires
- 
-}*/
+function recupEnd(){
+	var adresse = $('#lat-long-info').text();
+	$('#end').val(adresse);
+}

@@ -27,12 +27,15 @@ class DefaultController extends Controller
                          ->getForm();
             return $this->render('WebMainBundle:Default:map.html.twig', array(
                 'form' => $form->createView(),
+                'stationCurrent' => null
             ));
         else:
             $repo = $this->getDoctrine()->getManager()->getRepository("WebMainBundle:Favoris");
             $tmp = $repo->findBySlugNomStation($station);
+
             return $this->render('WebMainBundle:Default:map.html.twig',array(
-                'form' => null
+                'form' => null,
+                'stationCurrent' => $tmp[0]
             ));
         endif;
     }

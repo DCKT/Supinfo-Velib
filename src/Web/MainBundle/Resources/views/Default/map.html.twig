@@ -26,29 +26,29 @@
 				<strong style="font-size:20px;margin-left:20px;">End: </strong>
 				<input id="end" type="text" value="" >
 				<input id="send" class="btn btn-warning" style="margin-top:-10px;width:60px;" onclick="javascript:calcRoute()" value="Send" >
+				
+				<input id="btnStart" class="btn btn-success" style="margin-top:-10px;width:60px;" onclick="javascript:recupStart()" value="Start" >
+				<input id="btnEnd" class="btn btn-info" style="margin-top:-10px;width:60px;" onclick="javascript:recupEnd()" value="End" >
 			</form>
 		</div>
 	
 	
 		<div class="span12 offset5">
 			<legend>Station sélectionnée :</legend>	
+			{% if stationCurrent %}
+				<input id="latitude" type="text" style="display:none;" value="{{ stationCurrent.latitude }}" >
+				<input id="longitude" type="text" style="display:none;" value="{{ stationCurrent.longitude }}" >
+			{% endif %}
 
 		{% if form %}
 				<form action="{{ path('add_favori') }}" method="post" {{form_enctype(form) }} >
 					<table class="table table-bordered" id="table-selected">
 						<tr>
-							<td>
-								{{ form_label(form.nomStation, "Nom station :") }}
-								<span id="name_station"></span>
-							</td>
 							<td style="display:none">
 								{{ form_widget(form.nomStation, {'attr' : {'class' : 'uneditable-input'}}) }}
 								{{ form_widget(form.slugNomStation, {'attr' : {'class' : 'uneditable-input'}}) }}
 								{{ form_widget(form.latitude, {'attr' : {'class' : 'uneditable-input'}}) }}
 								{{ form_widget(form.longitude, {'attr' : {'class' : 'uneditable-input'}}) }}
-							</td>
-							<td>
-								<input type="submit" class="btn btn-warning btn-block" />
 							</td>
 						</tr>
 					</table>
