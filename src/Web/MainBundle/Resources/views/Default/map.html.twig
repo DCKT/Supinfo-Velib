@@ -2,7 +2,7 @@
 
 {% block body %}
 	{% for flashMessage in app.session.flashbag.get('notice') %}
-	    <div class="alert alert-danger" style="margin-top: 10px">
+	    <div class="alert" style="width: 50%; margin:15px auto 10px auto;">
 	        {{ flashMessage }}
 	        <button type="button" class="close" data-dismiss="alert">&times;</button>
 	    </div>
@@ -11,13 +11,6 @@
 	{% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
 	  	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDp96hrrsl5Guz4pm0R3AzSOKUUm0HzFJQ&sensor=false"></script>
 	  	<script src="{{ asset('js/velib.js') }}" type="text/javascript"></script>
-
-		<div class="row-fluid">
-			<div id="map" class="span12">
-				Afin d'afficher la carte de Google, vous devez activer Javascript.
-			</div>
-			<div id="route" style="margin-left:auto;margin-right:auto;width:900px"></div>
-		</div>	
 
 		<div class="row-fluid" id="itineraire-form">
 			<form action="#" method="post">
@@ -30,31 +23,39 @@
 				<input id="btnStart" class="btn btn-success" style="margin-top:-10px;width:60px;" onclick="javascript:recupStart()" value="Start" >
 				<input id="btnEnd" class="btn btn-info" style="margin-top:-10px;width:60px;" onclick="javascript:recupEnd()" value="End" >
 			</form>
-		</div>
-	
-	
-		<div class="span12 offset5">
-			<legend>Station sélectionnée :</legend>	
-			{% if stationCurrent %}
-				<input id="latitude" type="text" style="display:none;" value="{{ stationCurrent.latitude }}" >
-				<input id="longitude" type="text" style="display:none;" value="{{ stationCurrent.longitude }}" >
-			{% endif %}
+			<div class="form-selection hide">
+				<legend>Station sélectionnée :</legend>	
+				{% if stationCurrent %}
+					<input id="latitude" type="text" style="display:none;" value="{{ stationCurrent.latitude }}" >
+					<input id="longitude" type="text" style="display:none;" value="{{ stationCurrent.longitude }}" >
+				{% endif %}
 
-		{% if form %}
-				<form action="{{ path('add_favori') }}" method="post" {{form_enctype(form) }} >
-					<table class="table table-bordered" id="table-selected">
-						<tr>
-							<td style="display:none">
-								{{ form_widget(form.nomStation, {'attr' : {'class' : 'uneditable-input'}}) }}
-								{{ form_widget(form.slugNomStation, {'attr' : {'class' : 'uneditable-input'}}) }}
-								{{ form_widget(form.latitude, {'attr' : {'class' : 'uneditable-input'}}) }}
-								{{ form_widget(form.longitude, {'attr' : {'class' : 'uneditable-input'}}) }}
-							</td>
-						</tr>
-					</table>
-				</form>
+				{% if form %}
+					<form action="{{ path('add_favori') }}" method="post" {{form_enctype(form) }} id="fav-form">
+						<table class="table table-bordered" id="table-selected">
+							<tr>
+								<td style="">
+									{{ form_widget(form.nomStation) }}
+									{{ form_widget(form.slugNomStation) }}
+									{{ form_widget(form.latitude) }}
+									{{ form_widget(form.longitude) }}
+								</td>
+							</tr>
+						</table>
+					</form>
+				{% endif %}
+		</div>
+		<div class="row-fluid">
+			<div id="map" class="span12">
+				Afin d'afficher la carte de Google, vous devez activer Javascript.
 			</div>
-		{% endif %}
+			<div id="route" style="margin-left:auto;margin-right:auto;width:900px"></div>
+		</div>	
+
+		
+	
+	
+		
 
 	{% else %}
 		<h1 class="alert">Connexion requise</h1>
@@ -65,5 +66,9 @@
 			$(".container").removeClass();
 			$("#content").removeClass("span12");
 		});
+
+		$("#send-form").live('click', function() {
+			$("#fav-form").submit();
+		})
 	</script>
 {% endblock %}

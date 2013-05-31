@@ -21,6 +21,7 @@ function afficheDataStation(station_number,data) {
 				var emplacementsDispos = marker.children("free").text();
 				var html = "<p><strong>velos disponibles</strong> : "+velosDispos+"</p>";
 				html += "<p><strong>emplacements libres</strong> : "+emplacementsDispos+"</p></div>";
+				html += "<button class='btn btn-primary btn-block' id='send-form'>Ajouter aux favoris</button>";
 				$("#infosStations").replaceWith(html);
 				$("td#nb-selected").text(velosDispos);
 				$("td#emp-selected").text(emplacementsDispos);

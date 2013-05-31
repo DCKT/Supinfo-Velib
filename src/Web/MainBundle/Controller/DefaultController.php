@@ -94,7 +94,7 @@ class DefaultController extends Controller
             $manager->flush();
 
             $this->get('session')->getFlashBag()->add('notice', 'Favoris correctement ajouté !');
-            return $this->redirect($this->generateUrl('favoris'));
+            return $this->redirect($this->generateUrl('map'));
         }
         else {
             return new Response('Error');
