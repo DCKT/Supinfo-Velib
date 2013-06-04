@@ -1,8 +1,20 @@
 {% extends "WebMainBundle::layout.html.twig" %}
 
+{% block menu %}
+	<div class="box">
+		<form action="#" method="post" class="formChemin">
+			<input id="btnStart" class="btn btn-success" style="margin-top:-10px;width:60px;" onclick="javascript:recupStart()" value="Start" >
+			<input id="start" type="text" value="" >
+			<input id="btnEnd" class="btn btn-info" style="margin-top:-10px;width:60px;" onclick="javascript:recupEnd()" value="End" >
+			<input id="end" type="text" value="" >
+			<input id="send" class="btn btn-warning" style="margin-top:-10px;width:60px;" onclick="javascript:calcRoute()" value="Send" >
+		</form>
+	</div>
+{% endblock %}
+
 {% block body %}
 	{% for flashMessage in app.session.flashbag.get('notice') %}
-	    <div class="alert" style="width: 50%; margin:15px auto 10px auto;">
+	    <div class="alert alert-info" style="width: 50%; margin:15px auto 10px auto;position: absolute;z-index: 3;left: 385px;border: 1px solid black;">
 	        {{ flashMessage }}
 	        <button type="button" class="close" data-dismiss="alert">&times;</button>
 	    </div>
@@ -13,16 +25,7 @@
 	  	<script src="{{ asset('js/velib.js') }}" type="text/javascript"></script>
 
 		<div class="row-fluid" id="itineraire-form">
-			<form action="#" method="post">
-				<strong style="font-size:20px;">Start: </strong>
-				<input id="start" type="text" value="" >
-				<strong style="font-size:20px;margin-left:20px;">End: </strong>
-				<input id="end" type="text" value="" >
-				<input id="send" class="btn btn-warning" style="margin-top:-10px;width:60px;" onclick="javascript:calcRoute()" value="Send" >
-				
-				<input id="btnStart" class="btn btn-success" style="margin-top:-10px;width:60px;" onclick="javascript:recupStart()" value="Start" >
-				<input id="btnEnd" class="btn btn-info" style="margin-top:-10px;width:60px;" onclick="javascript:recupEnd()" value="End" >
-			</form>
+			
 			<div class="form-selection hide">
 				<legend>Station sélectionnée :</legend>	
 				{% if stationCurrent %}
@@ -49,7 +52,7 @@
 			<div id="map" class="span12">
 				Afin d'afficher la carte de Google, vous devez activer Javascript.
 			</div>
-			<div id="route" style="margin-left:auto;margin-right:auto;width:900px"></div>
+			<div id="route"></div>
 		</div>	
 
 		
@@ -62,11 +65,10 @@
 	{% endif %}
 		</div>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$(".container").removeClass();
-			$("#content").removeClass("span12");
+		$(document).ready(function(){
+			var d = window.innerHeight - 50;
+			$("#map").css("height",d);
 		});
-
 		$("#send-form").live('click', function() {
 			$("#fav-form").submit();
 		})

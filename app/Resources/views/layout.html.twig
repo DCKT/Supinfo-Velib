@@ -23,7 +23,7 @@
 
 <!-- Menu -->
     <div class="navbar navbar-inverse navbar-static-top">
-      <div class="navbar-inner">
+      <div class="navbar-inner" style="padding-top:5px;">
         <a class="brand" href="{{ path('index') }}">Web Project Velib</a>
         <ul class="nav">
             <li>
@@ -37,53 +37,54 @@
                 </a>
             </li>
              {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                <li>
+                    <li>
                     <a href="{{ path('favoris') }}">
                         Favoris
                     </a>
                 </li>
              {% endif %}
         </ul>
-            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                <li class="dropdown login-btn">
-                    <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
-                        {{ app.user.username }}
-                        <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu pull-right">
-                        <li>
-                                <a href="{{ path('fos_user_profile_edit')}}">
-                                    Editer mon profil
-                                </a>
-                            </li>
-                            <li class="divider"></li>
-                        <li>
-                            <a href="{{ path('fos_user_security_logout') }}">
-                                Déconnexion
+        {% block menu %}
+        {% endblock %}
+
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <li class="dropdown login-btn">
+                <a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
+                    {{ app.user.username }}
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu pull-right">
+                    <li>
+                            <a href="{{ path('fos_user_profile_edit')}}">
+                                Editer mon profil
                             </a>
                         </li>
-                    </ul>
-                </li>
-            {% else %}
-                <a class="btn btn-success login-btn" href="{{ path('fos_user_security_login') }}">
-                    Connexion
-                </a>
-            {% endif %}
+                        <li class="divider"></li>
+                    <li>
+                        <a href="{{ path('fos_user_security_logout') }}">
+                            Déconnexion
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        {% else %}
+            <a class="btn btn-success login-btn" href="{{ path('fos_user_security_login') }}">
+                Connexion
+            </a>
+        {% endif %}
       </div>
     </div>
 
 <!-- Page -->
-        <div class="container">
-            <div class="row">
-                <div id="content" class="span12">
+        
+            
+                <div id="content">
                     {% block body %}
                     {% endblock %}
                 </div>
-            </div>
+            
  <!-- Footer -->
-        <footer style="text-align:center">
-            <p>Projet Web SUPINFO</p>
-        </footer>
-    </div>
+        
+    
   </body>
 </html>

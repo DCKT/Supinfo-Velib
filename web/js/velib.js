@@ -105,13 +105,17 @@ function returnInfo(map,station_number, point, html) {
 
 function calcRoute() {
 	// on recupere les adresse de depart et d'arriver
+	$('#map').animate({
+		width: '1200px'
+	}, 750);
+	$('.adp').remove();
 	var start = $('#start').val();
 	var end = $('#end').val();
 	// on crée la variable avec les infos de direction
 	  var request = {
 	    origin:start,
 	    destination:end,
-	    travelMode: google.maps.TravelMode.DRIVING
+	    travelMode: google.maps.TravelMode.BICYCLING
 	  };
 	  // on verifie si l'itineraire existe
 	  directionsService.route(request, function(result, status) {
