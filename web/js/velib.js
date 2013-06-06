@@ -22,6 +22,8 @@ function afficheDataStation(station_number,data) {
 				var html = "<p><strong>velos disponibles</strong> : "+velosDispos+"</p>";
 				html += "<p><strong>emplacements libres</strong> : "+emplacementsDispos+"</p></div>";
 				html += "<button class='btn btn-primary btn-block' id='send-form'>Ajouter aux favoris</button>";
+				html += "<input id='btnStart' class='btn btn-success' style='margin-top: 5px;width: 85px;margin-right: 2px;' onclick='javascript:recupStart()' value='Start' >";
+				html += "<input id='btnEnd' class='btn btn-info' style='margin-top: 5px;width: 81px;' onclick='javascript:recupEnd()' value='End' >";
 				$("#infosStations").replaceWith(html);
 				$("td#nb-selected").text(velosDispos);
 				$("td#emp-selected").text(emplacementsDispos);
@@ -60,7 +62,7 @@ function chargeCarteVelib(map) {
 				var point = new google.maps.LatLng(lat,lng); // on créé les différents points correspondant à des stations vélib
 				var html = "<div id='size'><p><strong>"+label+"</strong></p>";
 				html += "<p id='lat-long-info' data-long="+lng+" data-lat="+lat+">"+address+"</p>";
-				var marker2 = returnInfo(map,station_number,point,html)
+				var marker2 = returnInfo(map,station_number,point,html);
 				marker2.setMap(map);
 			});
 		}
@@ -104,19 +106,27 @@ function returnInfo(map,station_number, point, html) {
 }
 
 function calcRoute() {
-	// on recupere les adresse de depart et d'arriver
+	// on ajuste la taille de la div route a l'ecran
+	var d = window.innerHeight - 50;
+	$('#route').css('height',d);
+
+	// on decalle la map avec une petite animation et l'on enleve l'encien itineraire si il y en n'a un
 	$('#map').animate({
 		width: '1200px'
 	}, 750);
 	$('.adp').remove();
+
+	// on recupere les adresse de depart et d'arriver
 	var start = $('#start').val();
 	var end = $('#end').val();
+
 	// on crée la variable avec les infos de direction
 	  var request = {
 	    origin:start,
 	    destination:end,
 	    travelMode: google.maps.TravelMode.BICYCLING
 	  };
+
 	  // on verifie si l'itineraire existe
 	  directionsService.route(request, function(result, status) {
 	    if (status == google.maps.DirectionsStatus.OK) {
@@ -143,8 +153,10 @@ function calcRoute() {
 
 	// on ajoute la l'itineraire a la map pour l'afficher
 	directionsDisplay.setMap(map);
+
 	// on affiche le detail de la route dans la div "route"
     directionsDisplay.setPanel(document.getElementById('route'));
+
 }
 
 $(document).ready(function(){

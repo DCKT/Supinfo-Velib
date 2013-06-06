@@ -44,8 +44,11 @@
                 </li>
              {% endif %}
         </ul>
-        {% block menu %}
-        {% endblock %}
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            {% block menu %}
+            {% endblock %}
+        {% endif %}
+        
 
         {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
             <li class="dropdown login-btn">
