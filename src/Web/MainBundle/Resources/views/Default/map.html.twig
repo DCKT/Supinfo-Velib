@@ -27,7 +27,6 @@
 		<div class="row-fluid" id="itineraire-form">
 			
 			<div class="form-selection hide">
-				<legend>Station sélectionnée :</legend>	
 				{% if stationCurrent %}
 					<input id="latitude" type="text" style="display:none;" value="{{ stationCurrent.latitude }}" >
 					<input id="longitude" type="text" style="display:none;" value="{{ stationCurrent.longitude }}" >
@@ -54,11 +53,6 @@
 			</div>
 			<div id="route"></div>
 		</div>	
-
-		
-	
-	
-		
 
 	{% else %}
 		<h1 class="alert" style="width: 500px;text-align: center;margin-left: auto;margin-right: auto;">Connexion requise</h1>
