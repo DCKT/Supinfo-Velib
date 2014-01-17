@@ -24,7 +24,7 @@ php composer.phar update
 
 - Utilisation d'un vhost<br />
 <code>
-http://blog.dck.me/post/40188913987/creer-un-vhost-pour-vos-projets-sous-symfony
+http://blog.thomasdeconinck.fr/2012/10/05/creer-un-vhost-pour-vos-projets-sous-symfony/
 </code>
 
 - Route principale
